@@ -3,14 +3,7 @@
 import {cookies} from "next/headers";
 import {AUTH_COOKIE, ENCRYPTION_KEY} from "@exchange-gateway/shared/tokens/auth";
 import {SignJWT} from "jose";
-import StandardErrorResponse from "@exchange-gateway/shared/api/standard-error-response";
 import {redirect} from "next/navigation";
-import {revalidatePath} from "next/cache";
-
-export interface LoginState {
-    error?: StandardErrorResponse;
-    loggedIn: boolean
-}
 
 export interface Credentials {
     email: string;
