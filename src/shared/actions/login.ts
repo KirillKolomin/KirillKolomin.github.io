@@ -21,7 +21,7 @@ export const login = async (redirectUrl: string, formData: FormData): Promise<an
     const password = formData.get('password');
 
     if (!email || typeof email !== 'string' || !password || typeof password !== 'string') {
-        return 'asd';
+        return 'Provided credentials are incorrect';
     }
 
     const user: Credentials = {
