@@ -1,9 +1,9 @@
-"use server"
+'use server';
 
-import {cookies} from "next/headers";
-import {AUTH_COOKIE, ENCRYPTION_KEY} from "@exchange-gateway/shared/tokens/auth";
-import {SignJWT} from "jose";
-import {redirect} from "next/navigation";
+import { cookies } from 'next/headers';
+import { AUTH_COOKIE, ENCRYPTION_KEY } from '@exchange-gateway/shared/tokens/auth';
+import { SignJWT } from 'jose';
+import { redirect } from 'next/navigation';
 
 export interface Credentials {
     email: string;
@@ -13,26 +13,27 @@ export interface Credentials {
 const SESSION_TIME_IN_SEC = 30;
 
 export async function encrypt(payload: any): Promise<string> {
-    return await new SignJWT(payload).setProtectedHeader({alg: 'HS256'}).setIssuedAt().setExpirationTime(`${SESSION_TIME_IN_SEC} sec from now`).sign(new TextEncoder().encode(ENCRYPTION_KEY));
+  return new SignJWT(payload).setProtectedHeader({ alg: 'HS256' }).setIssuedAt().setExpirationTime(`${SESSION_TIME_IN_SEC} sec from now`)
+    .sign(new TextEncoder().encode(ENCRYPTION_KEY));
 }
 
 export const login = async (redirectUrl: string, formData: FormData): Promise<any> => {
-    const email = formData.get('email');
-    const password = formData.get('password');
+  const email = formData.get('email');
+  const password = formData.get('password');
 
-    if (!email || typeof email !== 'string' || !password || typeof password !== 'string') {
-        return 'Provided credentials are incorrect';
-    }
+  if (!email || typeof email !== 'string' || !password || typeof password !== 'string') {
+    return 'Provided credentials are incorrect';
+  }
 
-    const user: Credentials = {
-        email,
-        password,
-    }
-    const expires = new Date(Date.now() + SESSION_TIME_IN_SEC * 1000);
-    const session = await encrypt({user, expires});
+  const user: Credentials = {
+    email,
+    password,
+  };
+  const expires = new Date(Date.now() + SESSION_TIME_IN_SEC * 1000);
+  const session = await encrypt({ user, expires });
 
-    cookies().set(AUTH_COOKIE, session, {expires, httpOnly: true, sameSite: 'strict'});
+  cookies().set(AUTH_COOKIE, session, { expires, httpOnly: true, sameSite: 'strict' });
 
-    redirectUrl = decodeURIComponent(redirectUrl);
-    redirect(redirectUrl);
-}
+  redirectUrl = decodeURIComponent(redirectUrl);
+  redirect(redirectUrl);
+};
