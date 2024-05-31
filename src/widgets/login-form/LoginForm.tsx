@@ -1,9 +1,9 @@
 'use client';
 
 import React, { memo, useState } from 'react';
-import { login } from '@exchange-gateway/shared/actions/login';
 import { useFormStatus } from 'react-dom';
-import { REDIRECT_URL_QUERY } from '@exchange-gateway/shared/tokens/auth';
+import { REDIRECT_URL_QUERY } from '@exchange-gateway/shared/authentication/consts';
+import { login } from '@exchange-gateway/shared/authentication/actions';
 
 const translations = {
   formTitle: 'Вход в аккаунт',

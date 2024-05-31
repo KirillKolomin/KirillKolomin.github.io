@@ -1,21 +1,9 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { AUTH_COOKIE, ENCRYPTION_KEY } from '@exchange-gateway/shared/tokens/auth';
-import { SignJWT } from 'jose';
 import { redirect } from 'next/navigation';
-
-export interface Credentials {
-    email: string;
-    password: string;
-}
-
-const SESSION_TIME_IN_SEC = 30;
-
-export async function encrypt(payload: any): Promise<string> {
-  return new SignJWT(payload).setProtectedHeader({ alg: 'HS256' }).setIssuedAt().setExpirationTime(`${SESSION_TIME_IN_SEC} sec from now`)
-    .sign(new TextEncoder().encode(ENCRYPTION_KEY));
-}
+import { encrypt } from '@exchange-gateway/shared/authentication/encrypt';
+import { AUTH_COOKIE, SESSION_TIME_IN_SEC } from '@exchange-gateway/shared/authentication/consts';
 
 export const login = async (redirectUrl: string, formData: FormData): Promise<any> => {
   const email = formData.get('email');
@@ -25,12 +13,12 @@ export const login = async (redirectUrl: string, formData: FormData): Promise<an
     return 'Provided credentials are incorrect';
   }
 
-  const user: Credentials = {
+  const user = {
     email,
     password,
   };
   const expires = new Date(Date.now() + SESSION_TIME_IN_SEC * 1000);
-  const session = await encrypt({ user, expires });
+  const session = await encrypt(SESSION_TIME_IN_SEC, { user, expires });
 
   cookies().set(AUTH_COOKIE, session, { expires, httpOnly: true, sameSite: 'strict' });
 
