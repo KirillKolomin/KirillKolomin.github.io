@@ -10,5 +10,5 @@ export const getSession = async (): Promise<unknown | null> => {
   if (!session) {
     return null;
   }
-  return await decrypt(session);
+  return decrypt(session);
 };
