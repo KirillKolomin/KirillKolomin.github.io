@@ -1,10 +1,10 @@
 import React from 'react';
 import LoginForm from '@exchange-gateway/widgets/login-form/LoginForm';
-import './page.css';
+import styles from './page.module.css';
 
 function LoginPage() {
   return (
-    <main>
+    <main className={`${styles['login-page']} flex min-h-screen flex-col items-center justify-between p-24`}>
       <LoginForm />
     </main>
   );
