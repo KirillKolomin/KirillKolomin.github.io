@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import NavigationBar from '@exchange-gateway/widgets/navigation-bar/NavigationBar';
-import { getSession } from '@exchange-gateway/shared/authentication/get-session';
+import getSession from '@exchange-gateway/shared/authentication/get-session';
 
 const inter = Inter({ subsets: ['latin'] });
 
