@@ -10,12 +10,12 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   const user = createRandomUser();
 
-  return Response.json({ user });
+  return Response.json(user);
 }
 
 function createRandomUser(): User {
   return {
-    fullName: faker.internet.userName(),
+    fullName: faker.person.fullName(),
     phone: faker.phone.number(),
   };
 }
