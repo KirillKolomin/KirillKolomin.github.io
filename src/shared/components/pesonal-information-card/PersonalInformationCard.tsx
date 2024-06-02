@@ -1,3 +1,5 @@
+'use client';
+
 import React, { memo, ReactNode } from 'react';
 
 interface PersonalInformation {
@@ -13,7 +15,7 @@ const translations: Record<string, string> & PersonalInformation = {
   cardTitle: 'User database',
   cardDescription: 'Details and information about user',
   fullName: 'Full name',
-  phone: 'Email address',
+  phone: 'Phone',
 };
 
 function PersonalInformationCard({ personalInformation }: PersonalInformationCardProps): ReactNode {
