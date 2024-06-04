@@ -2,14 +2,18 @@ import React from 'react';
 import PersonalInformationCard
   from '@exchange-gateway/shared/components/pesonal-information-card/PersonalInformationCard';
 import { GET as getProfile, User } from '@exchange-gateway/app/api/profile/route';
+import NavigationBar from '@exchange-gateway/widgets/navigation-bar/NavigationBar';
 
 export default async function Home() {
   const response: Response = await getProfile();
   const user: User = await response.json();
 
   return (
-    <main>
-      <PersonalInformationCard personalInformation={user} />
-    </main>
+    <>
+      <header><NavigationBar /></header>
+      <main>
+        <PersonalInformationCard personalInformation={user} />
+      </main>
+    </>
   );
 }
