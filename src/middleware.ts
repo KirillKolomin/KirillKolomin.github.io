@@ -12,7 +12,7 @@ export function middleware(request: NextRequest): NextResponse | void {
     return NextResponse.redirect(new URL(redirectUrl));
   }
 
-  if (!currentUser && !pathName.startsWith('/login')) {
+  if (!currentUser && !(pathName.startsWith('/login') || pathName.startsWith('/about'))) {
     return NextResponse.redirect(new URL(`/login?${REDIRECT_URL_QUERY}=${encodeURIComponent(url)}`, url));
   }
 }
