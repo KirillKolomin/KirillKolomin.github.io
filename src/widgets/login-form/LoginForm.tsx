@@ -2,30 +2,22 @@
 
 import React, { memo, useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { REDIRECT_URL_QUERY } from '@exchange-gateway/shared/authentication/consts';
-import { login } from '@exchange-gateway/shared/authentication/actions';
-
-const translations = {
-  formTitle: 'Вход в аккаунт',
-  submitButton: {
-    title: 'Войти',
-    processingTitle: 'Вход...',
-  },
-  emailTitle: 'Почта',
-  passwordTitle: 'Пароль',
-};
+import Button from '@exchange-gateway/shared/components/forms/Button';
+import { loginFormTranslations } from '@exchange-gateway/shared/translations/login-form';
+import FormError from '@exchange-gateway/shared/components/forms/FormError';
+import { REDIRECT_URL_QUERY } from '@exchange-gateway/shared/api/authentication/consts';
+import { login } from '@exchange-gateway/shared/api/authentication/actions';
 
 function Submit() {
   const { pending } = useFormStatus();
 
   return (
-    <button
-      aria-disabled={pending}
+    <Button
+      isDisabled={pending}
       type="submit"
-      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
     >
-      {pending ? translations.submitButton.processingTitle : translations.submitButton.title}
-    </button>
+      {pending ? loginFormTranslations.submitButton.processingTitle : loginFormTranslations.submitButton.title}
+    </Button>
   );
 }
 
@@ -34,9 +26,10 @@ function LoginForm() {
 
   const doFormAction = async (formData: FormData) => {
     const rawRedirectUrl = new URLSearchParams(location.search).get(REDIRECT_URL_QUERY) || '/';
-    const response = await login(rawRedirectUrl, formData);
-    if (response) {
-      setError(response);
+    const errorMessage = await login(rawRedirectUrl, formData);
+
+    if (errorMessage) {
+      setError(errorMessage);
     }
   };
 
@@ -48,7 +41,7 @@ function LoginForm() {
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
           alt="Your Company"
         />
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{translations.formTitle}</h2>
+        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{loginFormTranslations.formTitle}</h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -58,7 +51,7 @@ function LoginForm() {
               htmlFor="email"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              {translations.emailTitle}
+              {loginFormTranslations.emailTitle}
             </label>
             <div className="mt-2">
               <input
@@ -78,7 +71,7 @@ function LoginForm() {
                 htmlFor="password"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                {translations.passwordTitle}
+                {loginFormTranslations.passwordTitle}
               </label>
             </div>
             <div className="mt-2">
@@ -94,16 +87,7 @@ function LoginForm() {
           </div>
 
           <Submit />
-
-          <div
-            className="flex h-8 items-end space-x-1"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {error && (
-            <p className="text-sm text-red-500">{error}</p>
-            )}
-          </div>
+          {error && <FormError>{error}</FormError>}
         </form>
       </div>
     </div>

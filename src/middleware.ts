@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AUTH_COOKIE, REDIRECT_URL_QUERY } from '@exchange-gateway/shared/authentication/consts';
+import { AUTH_COOKIE, REDIRECT_URL_QUERY } from '@exchange-gateway/shared/api/authentication/consts';
 
 export function middleware(request: NextRequest): NextResponse | void {
   const currentUser = request.cookies.get(AUTH_COOKIE)?.value;

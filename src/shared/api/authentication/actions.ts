@@ -2,8 +2,8 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { encrypt } from '@exchange-gateway/shared/authentication/encrypt';
-import { AUTH_COOKIE, SESSION_TIME_IN_SEC } from '@exchange-gateway/shared/authentication/consts';
+import { encrypt } from '@exchange-gateway/shared/api/authentication/encrypt';
+import { AUTH_COOKIE, SESSION_TIME_IN_SEC } from '@exchange-gateway/shared/api/authentication/consts';
 
 export const login = async (redirectUrl: string, formData: FormData): Promise<any> => {
   const email = formData.get('email');

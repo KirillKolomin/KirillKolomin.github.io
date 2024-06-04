@@ -1,5 +1,5 @@
 import { jwtVerify, SignJWT } from 'jose';
-import { ENCRYPTION_KEY } from '@exchange-gateway/shared/authentication/consts';
+import { ENCRYPTION_KEY } from '@exchange-gateway/shared/api/authentication/consts';
 
 const secretKey = new TextEncoder().encode(ENCRYPTION_KEY);
 
