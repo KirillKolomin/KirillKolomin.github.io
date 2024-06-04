@@ -18,7 +18,11 @@ export default async function Home() {
     <>
       <header><NavigationBar /></header>
       <main>
-        <InformationCard title={personalInformationTranslations.cardTitle} description={personalInformationTranslations.cardDescription} statements={informationCardStatements} />
+        <InformationCard
+          title={personalInformationTranslations.cardTitle}
+          description={personalInformationTranslations.cardDescription}
+          statements={informationCardStatements}
+        />
       </main>
     </>
   );

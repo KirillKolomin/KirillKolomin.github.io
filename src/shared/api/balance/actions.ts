@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { transactionWithdrawalAction } from '@exchange-gateway/shared/translations/transaction-withdrawal-action';
 import { getBalanceOfUserFromDatabase } from '@exchange-gateway/shared/api/database-queries/profile';
 
+// eslint-disable-next-line no-unused-vars
 async function startWithdrawalTransaction(userId: string, amount: number): Promise<{ status: string }> {
   // const fireBaseDeductionOperationResult = await deductWithdrawalAmountFromUser(amount);
   // throw if fireBaseDeductionOperationResult has an error; rollback the whole transaction
