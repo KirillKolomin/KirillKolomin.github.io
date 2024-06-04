@@ -23,7 +23,7 @@ export default function BalanceWithdrawalForm() {
     <form action={doFormAction} className="flex flex-col lg:flex-row lg:items-end gap-4">
       <NumberInput id="balance-withdrawal" name={BALANCE_TO_WITHDRAW_INPUT_NAME} label={BalanceWithdrawalFormTranslations.balanceWithdrawalInputLabel} error={error} />
       <div>
-        <Button full={false} type="submit">{BalanceWithdrawalFormTranslations.balanceWithdrawalButtonTitle}</Button>
+        <Button type="submit">{BalanceWithdrawalFormTranslations.balanceWithdrawalButtonTitle}</Button>
       </div>
     </form>
   );
