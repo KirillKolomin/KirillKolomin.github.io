@@ -21,13 +21,11 @@ interface Navigation {
 const translations = {
   homePageTitle: 'Home',
   dashboardPageTitle: 'Dashboard',
-  aboutPageTitle: 'About',
 };
 
 const getNavigationItems = (pathname: string): Navigation[] => [
   { name: translations.homePageTitle, href: '/', current: pathname === '/' },
   { name: translations.dashboardPageTitle, href: '/dashboard', current: pathname === '/dashboard' },
-  { name: translations.aboutPageTitle, href: '/about', current: pathname === '/about' },
 ];
 
 function classNames(...classes: any[]) {
