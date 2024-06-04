@@ -6,8 +6,6 @@ export interface User {
     id: string;
 }
 
-export const dynamic = 'force-dynamic';
-
 export async function GET() {
   const user = createRandomUser();
 
